@@ -45,7 +45,7 @@ public class ReportWeatherController
 			
 			response = new WeatherResponse(winSpeed.intValue(), pBean.getCurrent().getTemperature());
 			
-			Weather weather = new Weather(city, winSpeed.intValue(), pBean.getCurrent().getTemperature());
+		//Weather weather = new Weather(city, winSpeed.intValue(), pBean.getCurrent().getTemperature());
 	        //weatherRepository.save(weather);
 		} else {
 //			Weather weather = weatherRepository.findByCity(city);
