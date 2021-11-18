@@ -22,8 +22,8 @@ public class ReportWeatherController
 	
 	private String failoverAPIHost = "http://api.openweathermap.org/data/2.5/weather?q=%s,AU&units=metric&appid=2326504fb9b100bee21400190e4dbe6d";
 	
-//	@Autowired
-//    WeatherRepository weatherRepository;
+	@Autowired
+        WeatherRepository weatherRepository;
 	
 	@RequestMapping(value = "/v1/weather", method = RequestMethod.GET)
 	public ResponseEntity<WeatherResponse> getWeather(@RequestParam String city) {
@@ -37,7 +37,7 @@ public class ReportWeatherController
 			response = new WeatherResponse(pBean.getCurrent().getWindSpeed(), pBean.getCurrent().getTemperature());
 			primaryURLSuccess = Boolean.TRUE;
 			
-	        //weatherRepository.save(new Weather(city, pBean.getCurrent().getWindSpeed(), pBean.getCurrent().getTemperature()));
+	        	weatherRepository.save(new Weather(city, pBean.getCurrent().getWindSpeed(), pBean.getCurrent().getTemperature()));
 		} else if(primaryURLSuccess != Boolean.TRUE) {
 			FailOverBean sBean = getWeathFromFailOverURL(city);
 			//Convert to km/sec
@@ -45,11 +45,11 @@ public class ReportWeatherController
 			
 			response = new WeatherResponse(winSpeed.intValue(), pBean.getCurrent().getTemperature());
 			
-		//Weather weather = new Weather(city, winSpeed.intValue(), pBean.getCurrent().getTemperature());
-	        //weatherRepository.save(weather);
+			Weather weather = new Weather(city, winSpeed.intValue(), pBean.getCurrent().getTemperature());
+	        	weatherRepository.save(weather);
 		} else {
-//			Weather weather = weatherRepository.findByCity(city);
-//			response = new WeatherResponse(weather.getWindSpeed(), weather.getTemperatureDegrees());			
+			Weather weather = weatherRepository.findByCity(city);
+			response = new WeatherResponse(weather.getWindSpeed(), weather.getTemperatureDegrees());			
 		}
       
 		return new ResponseEntity<WeatherResponse> (response, HttpStatus.OK);
