@@ -9,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-//@Entity
-//@Table(name="weather")
+@Entity
+@Table(name="weather")
 public class Weather implements Serializable {
 
     /**
@@ -18,8 +18,8 @@ public class Weather implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-//	@Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
